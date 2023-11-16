@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatalogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -38,9 +39,8 @@ Route::prefix('catalog')->group(function () {
         return view('catalog.create');
     });
 
-    Route::get('/edit/{id}', function ($id) {
-        return view('catalog.edit', array('id' => $id));
-    })->where('id', '[0-9]+');
+    Route::get('/edit/{id}', [CatalogController::class, 'getEdit']
+    )->where('id', '[0-9]+');
 });
 
 Route::get('perfil/{id?}', function ($id = null) {
