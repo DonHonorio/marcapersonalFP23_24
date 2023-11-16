@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,5 @@ Route::get('perfil/{id?}', function ($id = null) {
     }
 })
     ->where('id', '[0-9]+');
+
+Route::get('user/{nombre}/{apellidos}', [UserController::class, 'showProfile']);
