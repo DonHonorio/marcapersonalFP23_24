@@ -23,12 +23,27 @@ class EstudianteController extends Controller
             ->with("estudiante", Estudiante::findOrFail($id));
     }
 
-    public function putEdit($id) {
-        return view('estudiantes.edit')
-            ->with("estudiante", Estudiante::findOrFail($id));
+    public function putEdit(Request $request, $id) {
+        $estudiante = Estudiante::findOrFail($id);
+        $estudiante->update($request->all());
+
+        // $estudiante->nombre = $request->nombre;
+        // $estudiante->apellidos = $request->apellidos;
+        // $estudiante->direccion = $request->direccion;
+        // $estudiante->votos = $request->votos;
+        // $estudiante->ciclo = $request->ciclo;
+        // $estudiante->save();
+
+        return redirect(action( [self::class, 'getShow'], ['id' => $estudiante->id]));
     }
 
     public function getCreate(){
         return view('estudiantes.create');
+    }
+
+    public function store(Request $request) {
+        $estudiante = Estudiante::create($request->all());
+
+        return redirect(action( [self::class, 'getShow'], ['id' => $estudiante->id]));
     }
 }
